@@ -7,30 +7,6 @@ import click
 
 
 plt.rcParams['animation.embed_limit'] = 300
-#test imke
-n = 200
-d = 0.01
-v = 0.01
-dt = 1
-eta = 0.1
-
-r = np.random.random((n, 2))
-theta = np.random.random(n)
-#plot
-fig, ax = plt.subplots(figsize=(6, 6))
-
-x = r[:, 0]
-y = r[:, 1]
-u = np.cos(2 * np.pi * theta)
-vv = np.sin(2 * np.pi * theta)
-
-q = ax.quiver(x, y, u, vv, angles='xy')
-ax.set_xlim(0, 1)
-ax.set_ylim(0, 1)
-ax.set_title("Vicsek Model")
-
-counter = 0
-
 
 def distance(p1, p2):
     return np.sqrt(((p1 - p2) ** 2).sum())
@@ -98,5 +74,35 @@ def animate(frame):
     return q,
 
 
-ani = FuncAnimation(fig, animate, frames=200, interval=50, blit=True)
-plt.show()
+if __name__ == "__main__":
+
+    #test imke
+    n = 200
+    d = 0.01
+    v = 0.01
+    dt = 1
+    eta = 0.1
+
+    r = np.random.random((n, 2))
+    theta = np.random.random(n)
+    #plot
+    fig, ax = plt.subplots(figsize=(6, 6))
+
+    x = r[:, 0]
+    y = r[:, 1]
+    u = np.cos(2 * np.pi * theta)
+    vv = np.sin(2 * np.pi * theta)
+
+    q = ax.quiver(x, y, u, vv, angles='xy')
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_title("Vicsek Model")
+
+    counter = 0
+    
+    ani = FuncAnimation(fig, animate, frames=200, interval=50, blit=True)
+    plt.show()
+
+
+
+
