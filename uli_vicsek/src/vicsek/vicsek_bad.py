@@ -14,7 +14,7 @@ eta = 0.1
 
 r = np.random.random((n, 2))
 theta = np.random.random(n)
-
+#plot
 fig, ax = plt.subplots(figsize=(6, 6))
 
 x = r[:, 0]
