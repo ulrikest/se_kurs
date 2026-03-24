@@ -72,16 +72,18 @@ def animate(frame):
     print("frame", frame, "counter", counter)
 
     return q,
-
-
+    
+def input_parameters_user():
+    @click.command()
+    @click.option("--n", default=200, help="Set number of points")
+    @click.option("--d", default=0.01, help="Set distance between points")
+    @click.option("--v", default=0.01, help="Set velocity of points")
+    @click.option("--dt", default=1, help="Set time step")
+    @click.option("--eta", default=0.1, help="Set noise")
+    
 if __name__ == "__main__":
 
-    #test imke
-    n = 200
-    d = 0.01
-    v = 0.01
-    dt = 1
-    eta = 0.1
+    input_parameters_user()
 
     r = np.random.random((n, 2))
     theta = np.random.random(n)
