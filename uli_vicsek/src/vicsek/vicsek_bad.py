@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import time
 import math
+import click
+
 
 plt.rcParams['animation.embed_limit'] = 300
 
