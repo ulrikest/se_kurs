@@ -103,7 +103,7 @@ class VicsekModel:
         print("frame", frame, "counter", self.counter)
         return q,
 
-    def run(self):
+    def run(self, figname):
         fig, ax = plt.subplots(figsize=(6, 6))
         x = self.r[:, 0]
         y = self.r[:, 1]
@@ -116,7 +116,11 @@ class VicsekModel:
         ax.set_title("Vicsek Model")
 
         ani = FuncAnimation(fig, self.animate, frames=200, fargs=(q,), interval=50, blit=True)
+        # ani.save("animation.mp4", fps=20)
+        plt.savefig(figname +'.png')
         plt.show()
+        
+        
 
 
 @click.command()
