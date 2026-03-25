@@ -5,4 +5,4 @@ requires-python = ">=3.8"
 description = "My first Python package"
 authors = [
   {name = "Ulrike Stöffelmair", email = "ulrike.stoeffelmair@dlr.de"}]
-dependencies = ["numpy", "matplotlib", "click", "logging", "pytest", "pathlib"]
+dependencies = ["numpy", "matplotlib", "click", "logging", "pytest", "pathlib", "pdoc"]
