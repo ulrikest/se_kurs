@@ -9,6 +9,7 @@ plt.rcParams['animation.embed_limit'] = 300
 #testnderung
 
 
+
 def distance(p1, p2):
     return np.sqrt(((p1 - p2) ** 2).sum())
 
