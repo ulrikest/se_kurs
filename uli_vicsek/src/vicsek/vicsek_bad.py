@@ -6,6 +6,15 @@ import click
 
 class VicsekModel:
     def __init__(self, n, d, v, dt, eta):
+        ''' das definiert die Variablen der klasse
+        --------
+        Parameter:
+        n: number of points
+        d: distance between points
+        v: velocity of points
+        dt: time step
+        eta: noise
+        '''
         self.n = n  # Number of points
         self.d = d  # Distance between points
         self.v = v  # Velocity of points
@@ -17,32 +26,56 @@ class VicsekModel:
         self.theta = np.random.random(self.n)
         self.counter = 0
 
-    def distance(self, p1, p2):
+    @staticmethod
+    def distance(p1, p2):
+        ''' calculates the distance
+
+        --------
+        Parameter:
+        p1: first point (float)
+        p2: second point (float)
+
+        --------
+        Return:
+        distance of p1 and p2'''
         return np.sqrt(((p1 - p2) ** 2).sum())
 
+
+
+    def search_neighbours(self, i):
+        for j in range(self.n):
+            if i != j:
+                if VicsekModel.distance(self.r[i], self.r[j]) < self.d:
+                    theta_j = 2 * np.pi * self.theta[j]
+                    self.sum_sin += np.sin(theta_j)
+                    self.sum_cos += np.cos(theta_j)
+                    self.neighbours += 1
+        # return sum_sin, sum_cos, neighbours
+
+    def updata_coor(self, i):
+        if self.neighbours > 0:
+            avg_theta = np.arctan2(self.sum_sin / self.neighbours, self.sum_cos / self.neighbours)
+            self.theta[i] = (avg_theta / (2 * np.pi)) + self.eta * (np.random.rand() - 0.5)
+
+        dx = self.v * self.dt * np.cos(2 * np.pi * self.theta[i])
+        dy = self.v * self.dt * np.sin(2 * np.pi * self.theta[i])
+
+        self.r[i, 0] = self.r[i, 0] + dx
+        self.r[i, 1] = self.r[i, 1] + dy
+
     def update_model(self):
+        ''' update the model and create a new image
+        '''
         for i in range(self.n):
-            sum_sin = 0
-            sum_cos = 0
-            neighbours = 0
+            self.sum_sin = 0
+            self.sum_cos = 0
+            self.neighbours = 0
 
-            for j in range(self.n):
-                if i != j:
-                    if self.distance(self.r[i], self.r[j]) < self.d:
-                        theta_j = 2 * np.pi * self.theta[j]
-                        sum_sin += np.sin(theta_j)
-                        sum_cos += np.cos(theta_j)
-                        neighbours += 1
+            self.search_neighbours(i)
+            self.updata_coor(i)
 
-            if neighbours > 0:
-                avg_theta = np.arctan2(sum_sin / neighbours, sum_cos / neighbours)
-                self.theta[i] = (avg_theta / (2 * np.pi)) + self.eta * (np.random.rand() - 0.5)
 
-            dx = self.v * self.dt * np.cos(2 * np.pi * self.theta[i])
-            dy = self.v * self.dt * np.sin(2 * np.pi * self.theta[i])
 
-            self.r[i, 0] = self.r[i, 0] + dx
-            self.r[i, 1] = self.r[i, 1] + dy
 
             # Boundary conditions
             if self.r[i, 0] > 1:
