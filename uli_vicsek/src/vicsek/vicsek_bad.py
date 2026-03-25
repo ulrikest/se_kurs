@@ -8,6 +8,7 @@ import click
 plt.rcParams['animation.embed_limit'] = 300
 #testnderung
 
+
 def distance(p1, p2):
     return np.sqrt(((p1 - p2) ** 2).sum())
 
@@ -73,18 +74,26 @@ def animate(frame):
 
     return q,
     
-def input_parameters_user():
-    @click.command()
-    @click.option("--n", default=200, help="Set number of points")
-    @click.option("--d", default=0.01, help="Set distance between points")
-    @click.option("--v", default=0.01, help="Set velocity of points")
-    @click.option("--dt", default=1, help="Set time step")
-    @click.option("--eta", default=0.1, help="Set noise")
+@click.command()
+@click.option("--n", default=200, help="Set number of points")
+@click.option("--d", default=0.01, help="Set distance between points")
+@click.option("--v", default=0.01, help="Set velocity of points")
+@click.option("--dt", default=1, help="Set time step")
+@click.option("--eta", default=0.1, help="Set noise")    
     
-if __name__ == "__main__":
+def main(n, d, v, dt, eta):
+    
+    global r, theta, counter
+    global n_global, d_global, v_global, dt_global, eta_global
+    global q
 
-    input_parameters_user()
-
+    # assign to globals used elsewhere
+    globals()['n'] = n
+    globals()['d'] = d
+    globals()['v'] = v
+    globals()['dt'] = dt
+    globals()['eta'] = eta
+    
     r = np.random.random((n, 2))
     theta = np.random.random(n)
     #plot
@@ -104,6 +113,11 @@ if __name__ == "__main__":
     
     ani = FuncAnimation(fig, animate, frames=200, interval=50, blit=True)
     plt.show()
+    
+    
+if __name__ == "__main__":
+    
+    main()
 
 
 
