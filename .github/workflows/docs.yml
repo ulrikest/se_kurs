@@ -26,11 +26,10 @@ jobs:
           python-version: '3.12'
 
       # ADJUST THIS: install all dependencies (including pdoc)
-      - run: cd uli_vicsek
-      - run: pip install -e .
+      - run: pip install -e uli_vicsek/
       # ADJUST THIS: build your documentation into docs/.
       # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
-      - run: pdoc -d numpy -o docs/ uli_vicsek
+      - run: pdoc -d numpy -o docs/ vicsek
       
       - uses: actions/upload-pages-artifact@v4
         with:
