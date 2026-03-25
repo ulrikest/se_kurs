@@ -117,8 +117,12 @@ def main(n, d, v, dt, eta):
     
     
 if __name__ == "__main__":
-    
-    main()
+    n = 300
+    d = 0.01
+    v = 0.01
+    dt = 1
+    eta = 0.1
+    main(n, d, v, dt, eta)
 
 
 
