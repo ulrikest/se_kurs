@@ -26,6 +26,10 @@ class VicsekModel:
         self.theta = np.random.random(self.n)
         self.counter = 0
 
+        self.neighbours = 0
+        self.sum_sin = 0.
+        self.sum_cos = 0.
+
     @staticmethod
     def distance(p1, p2):
         ''' calculates the distance
@@ -43,6 +47,9 @@ class VicsekModel:
 
 
     def search_neighbours(self, i):
+        self.neighbours = 0
+        #self.sum_sin = 0
+        #self.sum_cos = 0
         for j in range(self.n):
             if i != j:
                 if VicsekModel.distance(self.r[i], self.r[j]) < self.d:
@@ -50,6 +57,8 @@ class VicsekModel:
                     self.sum_sin += np.sin(theta_j)
                     self.sum_cos += np.cos(theta_j)
                     self.neighbours += 1
+        #self.sum_sin = float(self.sum_sin)
+        #self.sum_cos = float(self.sum_cos)
         # return sum_sin, sum_cos, neighbours
 
     def updata_coor(self, i):
