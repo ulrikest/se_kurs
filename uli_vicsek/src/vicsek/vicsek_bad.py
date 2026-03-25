@@ -17,7 +17,8 @@ class VicsekModel:
         self.theta = np.random.random(self.n)
         self.counter = 0
 
-    def distance(self, p1, p2):
+    @staticmethod
+    def distance(p1, p2):
         return np.sqrt(((p1 - p2) ** 2).sum())
 
     def update_model(self):
@@ -28,7 +29,7 @@ class VicsekModel:
 
             for j in range(self.n):
                 if i != j:
-                    if self.distance(self.r[i], self.r[j]) < self.d:
+                    if VicsekModel.distance(self.r[i], self.r[j]) < self.d:
                         theta_j = 2 * np.pi * self.theta[j]
                         sum_sin += np.sin(theta_j)
                         sum_cos += np.cos(theta_j)
