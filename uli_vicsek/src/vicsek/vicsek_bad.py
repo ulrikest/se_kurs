@@ -4,6 +4,8 @@ from matplotlib.animation import FuncAnimation
 import time
 import math
 import click
+import logging
+
 
 plt.rcParams['animation.embed_limit'] = 300
 #testnderung
@@ -81,8 +83,16 @@ def animate(frame):
 @click.option("--v", default=0.01, help="Set velocity of points")
 @click.option("--dt", default=1, help="Set time step")
 @click.option("--eta", default=0.1, help="Set noise")    
+
     
 def main(n, d, v, dt, eta):
+    
+    logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO
+    )
+    logging.info("Saved to File")
+    logging.info("Program Started")
     
     global r, theta, counter
     global n_global, d_global, v_global, dt_global, eta_global
@@ -94,6 +104,12 @@ def main(n, d, v, dt, eta):
     globals()['v'] = v
     globals()['dt'] = dt
     globals()['eta'] = eta
+    
+    logging.info(f"n = {n}")
+    logging.info(f"d = {d}")
+    logging.info(f"v = {v}")
+    logging.info(f"dt = {dt}")
+    logging.info(f"eta = {eta}")
     
     r = np.random.random((n, 2))
     theta = np.random.random(n)
